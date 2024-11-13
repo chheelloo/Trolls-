@@ -164,7 +164,7 @@ app.post('/send-password-reset', async (req, res) => {
     // Check if the email exists in the database
     const user = await User.findOne({ emaildb: email });
     if (!user) {
-      return res.status(404).json({ success: false, message: 'Invalid Email. Try Again!'});
+      return res.status(404).json({ success: false, message: 'Email is not registered!'});
     } else {
       return res.status(200).json({ success: true, message: "Reset code sent to email"});
     }
