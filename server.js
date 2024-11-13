@@ -107,8 +107,11 @@ app.post('/forgot-password', async (req, res) => {
   if (!email) return res.status(400).send('Email is required');
 
   try {
+    // Check if there's an existing token for the user
     let token = await Token.findOne({ email });
-    const resetToken = generateRandomString(32);
+
+    // Generate a new token if not found or update the existing one
+    const resetToken = generateRandomString(32); // Generate a new reset token
 
     if (token) {
       token.token = resetToken;
@@ -117,13 +120,13 @@ app.post('/forgot-password', async (req, res) => {
       await new Token({ email, token: resetToken }).save();
     }
 
-    // Now send the reset code email as well
-    await sendResetCodeEmail(email, resetToken);  // Assuming you want to use this token to reset the password
+    // Send reset token via email
+    await sendResetCodeEmail(email, resetToken);
 
-    // Send a response with a redirect URL
+    // Respond with a message and a redirect URL
     res.status(200).json({
       message: 'Password reset token generated and email sent',
-      redirectUrl: '/reset-password.html',  // Include the redirect URL in the response
+      redirectUrl: '/reset-password.html', // You can use this to handle the redirect on the client side
     });
 
   } catch (error) {
@@ -131,6 +134,7 @@ app.post('/forgot-password', async (req, res) => {
     res.status(500).json({ message: 'Error processing request' });
   }
 });
+
 
 
 // Send Reset Code Email
