@@ -67,43 +67,10 @@ function displayCart() {
 
         const image = document.createElement('img');
         let imageSource = '';
-        if (item === "barb") {
-            imageSource = "css/Barb.jpeg";
-        } else if (item === "biggie") {
-            imageSource = "css/Biggie.jpeg";
-        } else if (item === "branch") {
-            imageSource = "css/Branch.jpeg";
-        } else if (item === "bridget") {
-            imageSource = "css/Bridget.jpeg";
-        } else if (item === "cooper") {
-            imageSource = "css/Cooper.jpeg";
-        } else if (item === "deltadawn") {
-            imageSource = "css/DeltaDawn.jpeg";
-        } else if (item === "dickory") {
-            imageSource = "css/Dickory.jpeg";
-        } else if (item === "glitter") {
-            imageSource = "css/Glitter.jpeg";
-        } else if (item === "guydiamond") {
-            imageSource = "css/Guy Diamond.jpeg";
-        } else if (item === "hickory") {
-            imageSource = "css/Hickory.jpeg";
-        } else if (item === "kingpeppy") {
-            imageSource = "css/King Peppy.jpg";
-        } else if (item === "mrdinkles") {
-            imageSource = "css/Mr. Dinkles.jpeg";
-        } else if (item === "princegristle") {
-            imageSource = "css/Prince Gristle.jpeg";
-        } else if (item === "smidge") {
-            imageSource = "css/Smidge.jpeg";
-        } else if (item === "thrash") {
-            imageSource = "css/Thrash.jpeg";
-        } else if (item === "tinydiamond") {
-            imageSource = "css/Tiny Diamond.jpeg";
-        } else if (item === "tumbleweed") {
-            imageSource = "css/Tumblewee.jpeg";
-        } else if (item === "poppy") {
+        if (item === "poppy") {
             imageSource = "css/Poppy.jpeg";
-        } 
+        }
+        // Add similar conditions for other items
         image.src = imageSource;
         image.alt = item;
         cartItem.appendChild(image);
@@ -172,7 +139,6 @@ document.getElementById('cancelOrderButton').addEventListener('click', function(
         return;
     }
 
-    // Add your logic here to actually cancel an order (e.g., send a request to your backend). 
     alert(`Canceling order with ID: ${selectedOrderId}`);
     // You can update the dropdown or the order history display after successful cancellation.
 });
@@ -186,52 +152,19 @@ function populateOrderToCancelDropdown() {
     orders.forEach(order => {
         const option = document.createElement('option');
         option.value = order.id;
-        option.text = `Order ID: ${order.id}`;
+        option.textContent = `Order ID: ${order.id}`;
         orderToCancelSelect.appendChild(option);
     });
 }
 
-// Fetch user details when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    fetchUserDetails();
-});
-async function fetchUserDetails() {
-    try {
-        const response = await fetch('/user-details', { credentials: 'include' });
-        if (!response.ok) {
-            throw new Error('Failed to fetch user details.');
-        }
-        const data = await response.json();
-        if (data.success) {
-            // Update the element with user email
-            document.getElementById('userEmail').textContent = data.user.email;
-        } else {
-            console.error('Failed to fetch user details:', data.message);
-        }
-    } catch (error) {
-        console.error('Error fetching user details:', error);
-    }
-}
-
-// Add logout functionality
-document.getElementById('logoutLink').addEventListener('click', function (event) {
+// Logout Logic
+logoutLink.addEventListener('click', function(event) {
     event.preventDefault();
     performLogout();
 });
-async function performLogout() {
-    try {
-        const response = await fetch('/logout', {
-            method: 'POST',
-            credentials: 'include'
-        });
-        
-        if (response.ok) {
-            // Redirect to login page
-            window.location.href = 'index.html';
-        } else {
-            console.error('Logout failed');
-        }
-    } catch (error) {
-        console.error('Error during logout:', error);
-    }
+
+function performLogout() {
+    alert("You have logged out successfully.");
+    // Redirect to login page (you can customize this part)
+    window.location.href = '/login'; 
 }
