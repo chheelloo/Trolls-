@@ -258,7 +258,7 @@
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const orderForm = document.querySelector('.order-form');
 const placeOrderButton = document.getElementById('place-order');
-const cartItemsContainer = document.getElementById('cart-items'); 
+const cartItemsContainer = document.getElementById('cart-items');
 const orderHistoryContainer = document.getElementById('orderHistoryList');
 const orderHistoryLink = document.getElementById('orderHistoryLink');
 const homeLink = document.getElementById('homeLink');
@@ -278,12 +278,6 @@ addToCartButtons.forEach(button => {
     button.addEventListener('click', () => {
         const productName = button.dataset.product;
         cart.push(productName);
-
-        button.classList.add('animate__animated', 'animate__bounceIn');
-        setTimeout(() => {
-            button.classList.remove('animate__animated', 'animate__bounceIn');
-        }, 500);
-
         displayCart();
     });
 });
@@ -293,15 +287,11 @@ placeOrderButton.addEventListener('click', (event) => {
 
     const name = document.getElementById('name').value;
     const selectedItems = Array.from(orderItemsSelect.selectedOptions).map(option => option.value);
+
     if (selectedItems.length === 0) {
         alert("Please select at least one item to order.");
         return;
     }
-
-    placeOrderButton.classList.add('animate__animated', 'animate__pulse');
-    setTimeout(() => {
-        placeOrderButton.classList.remove('animate__animated', 'animate__pulse');
-    }, 500);
 
     alert(`Order placed successfully!
 Name: ${name}
@@ -312,6 +302,7 @@ Items: ${selectedItems.join(", ")}`);
 
 // Function to display items in the cart
 function displayCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
     cartItemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
@@ -324,28 +315,26 @@ function displayCart() {
         cartItem.classList.add('cart-item');
 
         const image = document.createElement('img');
-        let imageSource = '';
-
-        // Map products to images (use your actual product names/images)
         const productImages = {
-            "barb": "Barb.jpeg",
-            "biggie": "Biggie.jpeg",
-            "branch": "Branch.jpeg",
-            "bridget": "Bridget.jpeg",
-            "cooper": "Cooper.jpeg",
-            "deltadawn": "DeltaDawn.jpeg",
-            "dickory": "Dickory.jpeg",
-            "glitter": "Glitter.jpeg",
-            "guydiamond": "Guy Diamond.jpeg",
-            "hickory": "Hickory.jpeg",
-            "kingpeppy": "King Peppy.jpg",
-            "mrdinkles": "Mr. Dinkles.jpeg",
-            "princegristle": "Prince Gristle.jpeg",
-            "smidge": "Smidge.jpeg",
-            "thrash": "Thrash.jpeg",
-            "tinydiamond": "Tiny Diamond.jpeg",
-            "tumbleweed": "Tumblewee.jpeg",
-            "poppy": "Poppy.jpeg"
+            "poppy": "css/Poppy.jpg",
+            "barb": "css/Barb.jpeg",
+            "biggie": "css/Biggie.jpeg",
+            "branch": "css/Branch.jpeg",
+            "bridget": "css/Bridget.jpeg",
+            "chef": "css/Chef.jpeg",
+            "cooper": "css/Cooper.jpeg",
+            "deltadawn": "css/Delta Dawn.jpeg",
+            "dickory": "css/Dickory.jpeg",
+            "glitter": "css/Glitter.jpeg",
+            "guydiamond": "css/Guy Diamond.jpeg",
+            "hickory": "css/Hickory.jpeg",
+            "kingpeppy": "css/King Peppy.jpg",
+            "mrdinkles": "css/Mr. Dinkles.jpeg",
+            "princegristle": "css/Prince Gristle.jpeg",
+            "smidge": "css/Smidge.jpg",
+            "thrash": "css/Thrash.jpg",
+            "tinydiamond": "css/Tiny Diamond.jpeg",
+            "tumbleweed": "css/Tumblewee.jpeg"
         };
 
         image.src = productImages[item] || '';  // Default image or blank
@@ -354,12 +343,6 @@ function displayCart() {
         cartItem.innerHTML += `${item}`;
 
         cartItemsContainer.appendChild(cartItem);
-
-        // Add animation to newly added cart items
-        cartItem.classList.add('animate__animated', 'animate__fadeInUp');
-        setTimeout(() => {
-            cartItem.classList.remove('animate__animated', 'animate__fadeInUp');
-        }, 500);
     });
 }
 
@@ -387,12 +370,6 @@ function displayOrderHistory() {
         const orderItem = document.createElement('li');
         orderItem.innerHTML = `Order ID: ${order.id} - Items: ${order.items.join(', ')} - Date: ${order.date}`;
         orderHistoryContainer.appendChild(orderItem);
-
-        // Add animation to newly added order items
-        orderItem.classList.add('animate__animated', 'animate__fadeInRight');
-        setTimeout(() => {
-            orderItem.classList.remove('animate__animated', 'animate__fadeInRight');
-        }, 500);
     });
 }
 
@@ -412,7 +389,6 @@ document.getElementById('cancelOrderButton').addEventListener('click', function(
         return;
     }
 
-    // Logic to cancel the order
     alert(`Canceling order with ID: ${selectedOrderId}`);
 });
 
@@ -468,7 +444,6 @@ async function fetchUserDetails() {
         const data = await response.json();
 
         if (data.success) {
-            // Update the element with user email
             document.getElementById('userEmail').textContent = data.user.email;
         } else {
             console.error('Failed to fetch user details:', data.message);
@@ -479,7 +454,7 @@ async function fetchUserDetails() {
 }
 
 // Add logout functionality
-document.getElementById('logoutLink').addEventListener('click', function (event) {
+logoutLink.addEventListener('click', function (event) {
     event.preventDefault();
     performLogout();
 });
@@ -492,7 +467,6 @@ async function performLogout() {
         });
 
         if (response.ok) {
-            // Redirect to login page
             window.location.href = 'index.html';
         } else {
             console.error('Logout failed');
