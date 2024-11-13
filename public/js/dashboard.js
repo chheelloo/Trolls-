@@ -67,10 +67,43 @@ function displayCart() {
 
         const image = document.createElement('img');
         let imageSource = '';
-        if (item === "poppy") {
+        if (item === "barb") {
+            imageSource = "css/Barb.jpeg";
+        } else if (item === "biggie") {
+            imageSource = "css/Biggie.jpeg";
+        } else if (item === "branch") {
+            imageSource = "css/Branch.jpeg";
+        } else if (item === "bridget") {
+            imageSource = "css/Bridget.jpeg";
+        } else if (item === "cooper") {
+            imageSource = "css/Cooper.jpeg";
+        } else if (item === "deltadawn") {
+            imageSource = "css/DeltaDawn.jpeg";
+        } else if (item === "dickory") {
+            imageSource = "css/Dickory.jpeg";
+        } else if (item === "glitter") {
+            imageSource = "css/Glitter.jpeg";
+        } else if (item === "guydiamond") {
+            imageSource = "css/Guy Diamond.jpeg";
+        } else if (item === "hickory") {
+            imageSource = "css/Hickory.jpeg";
+        } else if (item === "kingpeppy") {
+            imageSource = "css/King Peppy.jpg";
+        } else if (item === "mrdinkles") {
+            imageSource = "css/Mr. Dinkles.jpeg";
+        } else if (item === "princegristle") {
+            imageSource = "css/Prince Gristle.jpeg";
+        } else if (item === "smidge") {
+            imageSource = "css/Smidge.jpeg";
+        } else if (item === "thrash") {
+            imageSource = "css/Thrash.jpeg";
+        } else if (item === "tinydiamond") {
+            imageSource = "css/Tiny Diamond.jpeg";
+        } else if (item === "tumbleweed") {
+            imageSource = "css/Tumblewee.jpeg";
+        } else if (item === "poppy") {
             imageSource = "css/Poppy.jpeg";
-        }
-        // Add similar conditions for other items
+            
         image.src = imageSource;
         image.alt = item;
         cartItem.appendChild(image);
