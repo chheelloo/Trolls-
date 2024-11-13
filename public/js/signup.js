@@ -24,19 +24,19 @@ document.getElementById('password').addEventListener('input', function () {
 
     // Set password strength message
     if (strength === 0) {
-        strengthMessage.textContent = 'Password is very weak';
+        strengthMessage.textContent = 'Password is very weak!';
         strengthMessage.style.color = 'red';
     } else if (strength === 1) {
-        strengthMessage.textContent = 'Password is weak';
+        strengthMessage.textContent = 'Password is weak!';
         strengthMessage.style.color = 'red';
     } else if (strength === 2) {
-        strengthMessage.textContent = 'Password is weak';
+        strengthMessage.textContent = 'Password is weak!';
         strengthMessage.style.color = 'red';
     } else if (strength === 3) {
-        strengthMessage.textContent = 'Password is strong';
+        strengthMessage.textContent = 'Password is strong!';
         strengthMessage.style.color = 'green';
     } else if (strength === 4) {
-        strengthMessage.textContent = 'Password is very strong';
+        strengthMessage.textContent = 'Password is very strong!';
         strengthMessage.style.color = 'green';
     } else if (strength === 5) {
         strengthMessage.textContent = 'Password is very strong!';
