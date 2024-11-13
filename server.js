@@ -240,15 +240,15 @@ app.post('/signup', async (req, res) => {
     if (!isValidPassword(password)) {
       return res.status(400).json({ success: false, message: 'Password must contain at least 1 character(Uppercase & Lowercase), number, and special character' });
     } 
-    if (password < 8){
+    if (password.length < 8){
       return res.status(400).json({ success: false, message: 'Password must be 8 characters long' });
-      
+    } 
 
     const hashedPassword = hashPassword(password);
     await usersCollection.insertOne({ emaildb: email, password: hashedPassword, createdAt: new Date() });
 
     res.json({ success: true, message: 'Account created successfully' });
-  } catch (error) {
+    catch (error) {
     console.error('Error:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
