@@ -1,7 +1,7 @@
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const orderForm = document.querySelector('.order-form');
 const placeOrderButton = document.getElementById('place-order');
-const cartItemsContainer = document.getElementById('cart-items');
+const cartItemsContainer = document.getElementById('cart-items'); 
 const orderHistoryContainer = document.getElementById('orderHistoryList');
 const orderHistoryLink = document.getElementById('orderHistoryLink');
 const homeLink = document.getElementById('homeLink');
@@ -21,7 +21,7 @@ addToCartButtons.forEach(button => {
         const productName = button.dataset.product;
         cart.push(productName);
 
-        // Add animation to the "Add to Cart" button
+        
         button.classList.add('animate__animated', 'animate__bounceIn');
         setTimeout(() => {
             button.classList.remove('animate__animated', 'animate__bounceIn');
@@ -41,7 +41,7 @@ placeOrderButton.addEventListener('click', (event) => {
         return;
     }
 
-    // Add animation to the "Place Order" button
+    
     placeOrderButton.classList.add('animate__animated', 'animate__pulse');
     setTimeout(() => {
         placeOrderButton.classList.remove('animate__animated', 'animate__pulse');
@@ -51,7 +51,7 @@ placeOrderButton.addEventListener('click', (event) => {
 Name: ${name}
 Items: ${selectedItems.join(", ")}`);
 
-    // Optionally clear the orderItemsSelect after placing the order:
+    
     orderItemsSelect.value = "";
 });
 
@@ -114,7 +114,7 @@ function displayCart() {
         cartItem.innerHTML += `${item}`; 
         cartItemsContainer.appendChild(cartItem);
 
-        // Add animation to newly added cart items
+        
         cartItem.classList.add('animate__animated', 'animate__fadeInUp');
         setTimeout(() => {
             cartItem.classList.remove('animate__animated', 'animate__fadeInUp');
