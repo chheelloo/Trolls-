@@ -258,7 +258,7 @@
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const orderForm = document.querySelector('.order-form');
 const placeOrderButton = document.getElementById('place-order');
-const cartItemsContainer = document.getElementById('cart-items'); 
+const cartItemsContainer = document.getElementById('cart-items');
 const orderHistoryContainer = document.getElementById('orderHistoryList');
 const orderHistoryLink = document.getElementById('orderHistoryLink');
 const homeLink = document.getElementById('homeLink');
@@ -278,6 +278,7 @@ addToCartButtons.forEach(button => {
         const productName = button.dataset.product;
         cart.push(productName);
 
+        // Add animation to the "Add to Cart" button
         button.classList.add('animate__animated', 'animate__bounceIn');
         setTimeout(() => {
             button.classList.remove('animate__animated', 'animate__bounceIn');
@@ -297,15 +298,15 @@ placeOrderButton.addEventListener('click', (event) => {
         return;
     }
 
+    // Add animation to the "Place Order" button
     placeOrderButton.classList.add('animate__animated', 'animate__pulse');
     setTimeout(() => {
         placeOrderButton.classList.remove('animate__animated', 'animate__pulse');
     }, 500);
 
-    alert(`Order placed successfully!
-Name: ${name}
-Items: ${selectedItems.join(", ")}`);
+    alert(`Order placed successfully!\nName: ${name}\nItems: ${selectedItems.join(", ")}`);
 
+    // Optionally clear the orderItemsSelect after placing the order:
     orderItemsSelect.value = "";
 });
 
@@ -323,35 +324,51 @@ function displayCart() {
 
         const image = document.createElement('img');
         let imageSource = '';
-
-        switch(item) {
-            case 'barb': imageSource = "Barb.jpeg"; break;
-            case 'biggie': imageSource = "Biggie.jpeg"; break;
-            case 'branch': imageSource = "Branch.jpeg"; break;
-            case 'bridget': imageSource = "Bridget.jpeg"; break;
-            case 'cooper': imageSource = "Cooper.jpeg"; break;
-            case 'deltadawn': imageSource = "DeltaDawn.jpeg"; break;
-            case 'dickory': imageSource = "Dickory.jpeg"; break;
-            case 'glitter': imageSource = "Glitter.jpeg"; break;
-            case 'guydiamond': imageSource = "Guy Diamond.jpeg"; break;
-            case 'hickory': imageSource = "Hickory.jpeg"; break;
-            case 'kingpeppy': imageSource = "King Peppy.jpg"; break;
-            case 'mrdinkles': imageSource = "Mr. Dinkles.jpeg"; break;
-            case 'princegristle': imageSource = "Prince Gristle.jpeg"; break;
-            case 'smidge': imageSource = "Smidge.jpeg"; break;
-            case 'thrash': imageSource = "Thrash.jpeg"; break;
-            case 'tinydiamond': imageSource = "Tiny Diamond.jpeg"; break;
-            case 'tumbleweed': imageSource = "Tumblewee.jpeg"; break;
-            case 'poppy': imageSource = "Poppy.jpeg"; break;
-        }
-
+        if (item === "barb") {
+            imageSource = "css/Barb.jpeg";
+        } else if (item === "biggie") {
+            imageSource = "css/Biggie.jpeg";
+        } else if (item === "branch") {
+            imageSource = "css/Branch.jpeg";
+        } else if (item === "bridget") {
+            imageSource = "css/Bridget.jpeg";
+        } else if (item === "cooper") {
+            imageSource = "css/Cooper.jpeg";
+        } else if (item === "deltadawn") {
+            imageSource = "css/DeltaDawn.jpeg";
+        } else if (item === "dickory") {
+            imageSource = "css/Dickory.jpeg";
+        } else if (item === "glitter") {
+            imageSource = "css/Glitter.jpeg";
+        } else if (item === "guydiamond") {
+            imageSource = "css/Guy Diamond.jpeg";
+        } else if (item === "hickory") {
+            imageSource = "css/Hickory.jpeg";
+        } else if (item === "kingpeppy") {
+            imageSource = "css/King Peppy.jpg";
+        } else if (item === "mrdinkles") {
+            imageSource = "css/Mr. Dinkles.jpeg";
+        } else if (item === "princegristle") {
+            imageSource = "css/Prince Gristle.jpeg";
+        } else if (item === "smidge") {
+            imageSource = "css/Smidge.jpeg";
+        } else if (item === "thrash") {
+            imageSource = "css/Thrash.jpeg";
+        } else if (item === "tinydiamond") {
+            imageSource = "css/Tiny Diamond.jpeg";
+        } else if (item === "tumbleweed") {
+            imageSource = "css/Tumblewee.jpeg";
+        } else if (item === "poppy") {
+            imageSource = "css/Poppy.jpeg";
+        } 
         image.src = imageSource;
         image.alt = item;
         cartItem.appendChild(image);
 
-        cartItem.innerHTML += `${item}`;
+        cartItem.innerHTML += `${item}`; 
         cartItemsContainer.appendChild(cartItem);
 
+        // Add animation to newly added cart items
         cartItem.classList.add('animate__animated', 'animate__fadeInUp');
         setTimeout(() => {
             cartItem.classList.remove('animate__animated', 'animate__fadeInUp');
@@ -369,7 +386,7 @@ orderHistoryLink.addEventListener('click', function(event) {
 });
 
 function displayOrderHistory() {
-    orderHistoryContainer.innerHTML = ''; // Clear existing list items
+    orderHistoryContainer.innerHTML = '';
 
     const orders = [
         { id: 1, items: ['Big Chungus', 'Doge'], date: '2023-12-01' },
@@ -386,6 +403,7 @@ function displayOrderHistory() {
         orderItem.innerHTML = `Order ID: ${order.id} - Items: ${order.items.join(', ')} - Date: ${order.date}`;
         orderHistoryContainer.appendChild(orderItem);
 
+        // Add animation to newly added order items
         orderItem.classList.add('animate__animated', 'animate__fadeInRight');
         setTimeout(() => {
             orderItem.classList.remove('animate__animated', 'animate__fadeInRight');
@@ -411,7 +429,9 @@ document.getElementById('cancelOrderButton').addEventListener('click', function(
         return;
     }
 
+    // Add your logic here to actually cancel an order (e.g., send a request to your backend). 
     alert(`Canceling order with ID: ${selectedOrderId}`);
+    // You can update the dropdown or the order history display after successful cancellation.
 });
 
 function populateOrderToCancelDropdown() {
@@ -432,18 +452,15 @@ function populateOrderToCancelDropdown() {
 document.addEventListener('DOMContentLoaded', function () {
     fetchUserDetails();
 });
-
 async function fetchUserDetails() {
     try {
         const response = await fetch('/user-details', { credentials: 'include' });
-
         if (!response.ok) {
             throw new Error('Failed to fetch user details.');
         }
-
         const data = await response.json();
-
         if (data.success) {
+            // Update the element with user email
             document.getElementById('userEmail').textContent = data.user.email;
         } else {
             console.error('Failed to fetch user details:', data.message);
@@ -454,22 +471,20 @@ async function fetchUserDetails() {
 }
 
 // Add logout functionality
-logoutLink.addEventListener('click', function (event) {
+document.getElementById('logoutLink').addEventListener('click', function (event) {
     event.preventDefault();
     performLogout();
 });
-
 async function performLogout() {
     try {
         const response = await fetch('/logout', {
             method: 'POST',
             credentials: 'include'
         });
-
+        
         if (response.ok) {
-            localStorage.clear(); // Clear local storage
-            sessionStorage.clear(); // Clear session storage
-            window.location.href = 'index.html';  // Redirect to login page
+            // Redirect to login page
+            window.location.href = 'index.html';
         } else {
             console.error('Logout failed');
         }
@@ -477,11 +492,3 @@ async function performLogout() {
         console.error('Error during logout:', error);
     }
 }
-
-// Home Button Logic
-homeLink.addEventListener('click', function(event) {
-    event.preventDefault();
-    homeContent.classList.remove('hide');
-    orderHistoryContent.classList.add('hide');
-    cancellationContent.classList.add('hide');
-});
