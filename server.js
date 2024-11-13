@@ -137,7 +137,7 @@ app.post('/forgot-password', async (req, res) => {
 async function sendResetCodeEmail(email, resetCode) {
   const msg = {
     to: email,
-    from: 'balicweyjohnwell@gmail.com',
+    from: 'chelorynmhariemilo@gmail.com',
     subject: 'Your Password Reset Code',
     text: `Your password reset code is: ${resetCode}`,
     html: `<p>Your password reset code is:</p><h3>${resetCode}</h3>`,
