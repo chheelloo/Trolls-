@@ -1,5 +1,5 @@
  // Toggle password visibility for the "Password" field
- document.getElementById('togglePassword').addEventListener('click', function() {
+ document.getElementById('togglenewPassword').addEventListener('click', function() {
     const passwordInput = document.getElementById('newPassword');
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
@@ -20,7 +20,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     var password = document.getElementById('newPassword').value.trim();
     var confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
         alert('Passwords do not match. Please try again.');
         return;
     }
