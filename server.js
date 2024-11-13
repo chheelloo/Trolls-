@@ -318,5 +318,6 @@ app.get('/dashboard', isAuthenticated, async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`\x1b[34mServer is running on port ${PORT};
+    console.log(`\x1b[34mServer is running on port ${PORT}`);
 });
+
