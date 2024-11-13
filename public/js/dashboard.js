@@ -211,5 +211,5 @@ logoutLink.addEventListener('click', function(event) {
 function performLogout() {
     alert("You have logged out successfully.");
     // Redirect to login page (you can customize this part)
-    window.location.href = '/index'; 
+    window.location.href = '/index.html'; 
 }
