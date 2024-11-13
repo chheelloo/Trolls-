@@ -11,6 +11,7 @@
             color: red;
             font-size: 0.9em;
             margin-top: 5px;
+            margin-bottom: 10px; /* Space between error message and next input or button */
         }
         .password-toggle {
             position: relative;
@@ -21,6 +22,12 @@
             right: 10px;
             transform: translateY(-50%);
             cursor: pointer;
+            font-size: 18px;
+        }
+        .password-strength {
+            font-size: 0.9em;
+            color: #ff4081;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -30,16 +37,19 @@
         <div class="shape"></div>
         <form id="loginForm" action="/login" method="post" class="form-container">
             <h3>Login</h3>
+
             <label for="email">Email</label>
-            <input type="email" placeholder="example@gmail.com" id="email" name="email" required>
+            <input type="email" placeholder="example@gmail.com" id="email" name="email">
             <div id="emailError" class="error-message"></div>
 
             <label for="password">Password</label>
             <div class="password-toggle">
-                <input type="password" placeholder="Password" id="password" name="password" required>
+                <input type="password" placeholder="Password" id="password" name="password">
                 <span id="togglePassword" class="password-toggle-icon">👁</span>
             </div>
             <div id="passwordError" class="error-message"></div>
+
+            <div id="passwordStrength" class="password-strength"></div>
 
             <button type="submit">Log In</button>
             <div id="formError" class="error-message"></div>
@@ -50,6 +60,7 @@
             </div>
         </form>
     </div>
+
     <script src = "js/login.js"></script>
 </body>
 </html>
