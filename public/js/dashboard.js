@@ -13,15 +13,7 @@ const logoutLink = document.getElementById('logoutLink');
 const orderItemsSelect = document.getElementById('orderItems');
 const orderToCancelSelect = document.getElementById('orderToCancel');
 
-let cart = [];
-let orders = []; // To store the completed orders
-
-// JavaScript for sidebar toggle on small screens
-document.getElementById('hamburgerMenu').addEventListener('click', function() {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('show');
-});
-
+const cart = [];
 
 // Home Section Logic
 addToCartButtons.forEach(button => {
@@ -55,20 +47,10 @@ placeOrderButton.addEventListener('click', (event) => {
         placeOrderButton.classList.remove('animate__animated', 'animate__pulse');
     }, 500);
 
-    // Add the cart to the orders list
-    const order = {
-        id: orders.length + 1, // Order ID is based on the number of orders already placed
-        name: name,
-        items: [...cart], // Copy the cart items to the order
-        date: new Date().toLocaleDateString()
-    };
-    orders.push(order);
-
     alert(`Order placed successfully!\nName: ${name}\nItems: ${selectedItems.join(", ")}`);
 
-    // Optionally clear the cart after placing the order
-    cart = [];
-    displayCart();
+    // Optionally clear the orderItemsSelect after placing the order:
+    orderItemsSelect.value = "";
 });
 
 function displayCart() {
@@ -121,8 +103,7 @@ function displayCart() {
             imageSource = "css/Tumblewee.jpeg";
         } else if (item === "poppy") {
             imageSource = "css/Poppy.jpeg";
-        }
-        
+            
         image.src = imageSource;
         image.alt = item;
         cartItem.appendChild(image);
@@ -138,7 +119,7 @@ function displayCart() {
     });
 }
 
-// Order History Section Logic
+// Your Orders Section Logic
 orderHistoryLink.addEventListener('click', function(event) {
     event.preventDefault();
     displayOrderHistory();
@@ -150,6 +131,11 @@ orderHistoryLink.addEventListener('click', function(event) {
 function displayOrderHistory() {
     orderHistoryContainer.innerHTML = '';
 
+    const orders = [
+        { id: 1, items: ['Big Chungus', 'Doge'], date: '2023-12-01' },
+        { id: 2, items: ['Trollface', 'Nyan Cat'], date: '2023-12-05' }
+    ];
+
     if (orders.length === 0) {
         orderHistoryContainer.innerHTML = "<li>No order history found.</li>";
         return;
@@ -157,7 +143,7 @@ function displayOrderHistory() {
 
     orders.forEach(order => {
         const orderItem = document.createElement('li');
-        orderItem.innerHTML = `Order ID: ${order.id} - Name: ${order.name} - Items: ${order.items.join(', ')} - Date: ${order.date}`;
+        orderItem.innerHTML = `Order ID: ${order.id} - Items: ${order.items.join(', ')} - Date: ${order.date}`;
         orderHistoryContainer.appendChild(orderItem);
 
         // Add animation to newly added order items
@@ -167,16 +153,6 @@ function displayOrderHistory() {
         }, 500);
     });
 }
-
-// Navigate to Home Section
-homeLink.addEventListener('click', function(event) {
-    event.preventDefault();
-    cartItemsContainer.innerHTML = '';
-    homeContent.classList.remove('hide');
-    orderHistoryContent.classList.add('hide');
-    cancellationContent.classList.add('hide');
-    displayCart();
-});
 
 // Cancellation Section Logic
 cancellationLink.addEventListener('click', function(event) {
@@ -201,6 +177,11 @@ document.getElementById('cancelOrderButton').addEventListener('click', function(
 });
 
 function populateOrderToCancelDropdown() {
+    const orders = [
+        { id: 1, items: ['Big Chungus', 'Doge'], date: '2023-12-01' },
+        { id: 2, items: ['Trollface', 'Nyan Cat'], date: '2023-12-05' }
+    ];
+
     orders.forEach(order => {
         const option = document.createElement('option');
         option.value = order.id;
