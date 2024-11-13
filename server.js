@@ -164,7 +164,9 @@ app.post('/send-password-reset', async (req, res) => {
     // Check if the email exists in the database
     const user = await User.findOne({ emaildb: email });
     if (!user) {
-      return res.status(404).json({ success: false, message: 'No account with that email exists' });
+      return res.status(404).json({ success: false, message: 'Invalid Email. Try Again!'});
+    } else {
+      return res.status(200).json({ success: true, message: "Reset code sent to email"});
     }
 
     // Generate the reset token and save it to the user's record
@@ -222,8 +224,11 @@ app.post('/reset-password', async (req, res) => {
 app.post('/signup', async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Email and password are required' });
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required' });
+  } 
+  if (!password) {
+    return res.status(400).json({ success: false, message: 'Password is required' });
   }
 
   try {
@@ -233,8 +238,11 @@ app.post('/signup', async (req, res) => {
     }
 
     if (!isValidPassword(password)) {
-      return res.status(400).json({ success: false, message: 'Password must contain atleat 1 character, number, and special character' });
-    }
+      return res.status(400).json({ success: false, message: 'Password must contain at least 1 character(Uppercase & Lowercase), number, and special character' });
+    } 
+    if (password < 8){
+      return res.status(400).json({ success: false, message: 'Password must be 8 characters long' });
+      
 
     const hashedPassword = hashPassword(password);
     await usersCollection.insertOne({ emaildb: email, password: hashedPassword, createdAt: new Date() });
@@ -249,9 +257,9 @@ app.post('/signup', async (req, res) => {
 
 // Login Rate Limiter
 const loginLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // 30 minutes
-  max: 500, // Limit each IP to 5 requests per windowMs
-  message: 'Too many login attempts, please try again after 5 minutes.',
+  windowMs: 60 * 1000, // 30 minutes
+  max: 8, // 
+  message: 'Too many login attempts, please try again after 1 minute!',
   handler: function (req, res, next, options) {
     res.status(options.statusCode).json({ success: false, message: options.message });
   }
