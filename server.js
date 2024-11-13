@@ -12,7 +12,7 @@ const sgMail = require('@sendgrid/mail');
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb'); // Import MongoClient here
 const bcrypt = require('bcrypt');
-const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://Chelo:MjJYdu7YpYI0szHr@cluster1.e5xj4.mongodb.net/';
+const mongoUri = process.env.MONGODB_URI;
 const client = new MongoClient(mongoUri); 
 const PORT = process.env.PORT || 3000;
 
@@ -164,9 +164,7 @@ app.post('/send-password-reset', async (req, res) => {
     // Check if the email exists in the database
     const user = await User.findOne({ emaildb: email });
     if (!user) {
-      return res.status(404).json({ success: false, message: 'Email is not registered!'});
-    } else {
-      return res.status(200).json({ success: true, message: "Reset code sent to email"});
+      return res.status(404).json({ success: false, message: 'No account with that email exists' });
     }
 
     // Generate the reset token and save it to the user's record
@@ -224,11 +222,8 @@ app.post('/reset-password', async (req, res) => {
 app.post('/signup', async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email) {
-    return res.status(400).json({ success: false, message: 'Email is required' });
-  } 
-  if (!password) {
-    return res.status(400).json({ success: false, message: 'Password is required' });
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: 'Email and password are required' });
   }
 
   try {
@@ -238,17 +233,14 @@ app.post('/signup', async (req, res) => {
     }
 
     if (!isValidPassword(password)) {
-      return res.status(400).json({ success: false, message: 'Password must contain at least 1 character(Uppercase & Lowercase), number, and special character' });
-    } 
-    if (password.length < 8){
-      return res.status(400).json({ success: false, message: 'Password must be 8 characters long' });
-    } 
+      return res.status(400).json({ success: false, message: 'Password must contain atleat 1 character, number, and special character' });
+    }
 
     const hashedPassword = hashPassword(password);
     await usersCollection.insertOne({ emaildb: email, password: hashedPassword, createdAt: new Date() });
 
     res.json({ success: true, message: 'Account created successfully' });
-    catch (error) {
+  } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
@@ -257,9 +249,9 @@ app.post('/signup', async (req, res) => {
 
 // Login Rate Limiter
 const loginLimiter = rateLimit({
-  windowMs: 60 * 1000, // 30 minutes
-  max: 8, // 
-  message: 'Too many login attempts, please try again after 1 minute!',
+  windowMs: 5 * 60 * 1000, // 30 minutes
+  max: 500, // Limit each IP to 5 requests per windowMs
+  message: 'Too many login attempts, please try again after 5 minutes.',
   handler: function (req, res, next, options) {
     res.status(options.statusCode).json({ success: false, message: options.message });
   }
@@ -326,6 +318,5 @@ app.get('/dashboard', isAuthenticated, async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  const baseUrl = `http://localhost:${PORT}`;
-    console.log(`\x1b[34mServer is running on port ${PORT}: ${baseUrl}\x1b[0m`);
+    console.log(`\x1b[34mServer is running on port ${PORT};
 });
