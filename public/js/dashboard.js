@@ -16,6 +16,13 @@ const orderToCancelSelect = document.getElementById('orderToCancel');
 let cart = [];
 let orders = []; // To store the completed orders
 
+// JavaScript for sidebar toggle on small screens
+document.getElementById('hamburgerMenu').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('show');
+});
+
+
 // Home Section Logic
 addToCartButtons.forEach(button => {
     button.addEventListener('click', () => {
