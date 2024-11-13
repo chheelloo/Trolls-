@@ -31,12 +31,12 @@ body, html {
 .dashboard-container {
     display: flex;
     width: 100%;
-/*    max-width: 1200px;
+    max-width: 1200px;
     justify-content: space-between;
     flex-wrap: wrap; /* Allow content to wrap when space is tight */
- /*   min-height: 100vh; /* Ensure the container takes at least the full viewport height 
-    overflow: hidden; /* Prevent unwanted scrolling outside the container 
-}*/
+    min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+    overflow: hidden; /* Prevent unwanted scrolling outside the container */
+    }
 
 .main-content {
     flex-grow: 1;
@@ -486,8 +486,6 @@ footer a:hover {
         .order-form button:hover {
             background-color: #e65100; /* Darker orange */
         }
-
-        /* Cart (Removed, no longer needed) */
 
         /* Order History */
         .order-history {
