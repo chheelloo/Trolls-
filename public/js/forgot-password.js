@@ -36,11 +36,12 @@ document.querySelector('.form-container').addEventListener('submit', async (even
         const result = await response.json();
         
         if (response.ok) {
+            // Show the success message (alert) before redirecting
+            alert(result.message || 'Password reset link sent successfully!');
+            
             // If the response contains the redirect URL, redirect the user
             if (result.redirectUrl) {
                 window.location.href = result.redirectUrl; // Redirect to reset-password.html
-            } else {
-                alert(result.message); // Show success message
             }
         } else {
             // Display error message if the response is not OK
